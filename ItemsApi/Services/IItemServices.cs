@@ -1,3 +1,4 @@
+using ItemsApi.Contracts;
 using ItemsApi.Models;
 
 namespace ItemsApi.Interface

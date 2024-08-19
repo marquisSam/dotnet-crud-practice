@@ -1,4 +1,5 @@
 using AutoMapper;
+using ItemsApi.Contracts;
 using ItemsApi.Models;
 
 namespace ItemsApi.MappingProfiles

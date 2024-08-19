@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-public class UpdateDndItemRequest
+namespace ItemsApi.Contracts
 {
+    public class UpdateDndItemRequest
+    {
     [StringLength(100)]
     public string Name { get; set; }
 
@@ -16,6 +18,7 @@ public class UpdateDndItemRequest
 
     public UpdateDndItemRequest()
     {
-        Properties = new List<string>();
+            Properties = new List<string>();
+        }
     }
 }
