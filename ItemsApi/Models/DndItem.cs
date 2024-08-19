@@ -1,22 +1,35 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace TodoAPI.Models
+namespace ItemsApi.Models
 {
-    public class Todo
+    public class DndItem
     {
         [Key]
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public bool IsComplete { get; set; }
-        public DateTime DueDate { get; set; }
-        public int Priority { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+        public decimal? Value { get; set; }
+        public decimal? Weight { get; set; }
+        public string? Rarity { get; set; }
+        public string? Type { get; set; }
+        public List<string>? Properties { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
-        public Todo()
+        public DndItem()
         {
-            IsComplete = false;
+            Properties = new List<string>();
         }
+    }
+
+    public class ErrorResponse
+    {
+        public string Title { get; set; }
+        public int StatusCode { get; set; }
+        public string Message { get; set; }
+    }
+
+    public class DbSettings
+    {
+        public string ConnectionString { get; set; }
     }
 }
