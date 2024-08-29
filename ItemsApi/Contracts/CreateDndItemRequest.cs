@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ItemsApi.Contracts{
+namespace ItemsApi.Contracts
+{
 
     public class CreateDndItemRequest
     {

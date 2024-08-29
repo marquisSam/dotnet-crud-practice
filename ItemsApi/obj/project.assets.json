@@ -4554,11 +4554,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marqu\\desktop\\_PROJECT_\\dotnet-crud-practice\\ItemsApi\\ItemsApi.csproj",
+      "projectUniqueName": "C:\\Users\\marqu\\Desktop\\Projet Perso\\pratiques\\dotnet-crud-practice\\ItemsApi\\ItemsApi.csproj",
       "projectName": "ItemsApi",
-      "projectPath": "C:\\Users\\marqu\\desktop\\_PROJECT_\\dotnet-crud-practice\\ItemsApi\\ItemsApi.csproj",
+      "projectPath": "C:\\Users\\marqu\\Desktop\\Projet Perso\\pratiques\\dotnet-crud-practice\\ItemsApi\\ItemsApi.csproj",
       "packagesPath": "C:\\Users\\marqu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marqu\\desktop\\_PROJECT_\\dotnet-crud-practice\\ItemsApi\\obj\\",
+      "outputPath": "C:\\Users\\marqu\\Desktop\\Projet Perso\\pratiques\\dotnet-crud-practice\\ItemsApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\marqu\\AppData\\Roaming\\NuGet\\NuGet.Config"

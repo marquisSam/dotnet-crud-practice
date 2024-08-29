@@ -3,7 +3,8 @@ using ItemsApi.Models;
 
 namespace ItemsApi.Interface
 {
-    public interface IItemServices {
+    public interface IItemServices
+    {
         Task<IEnumerable<DndItem>> GetAllItems();
         Task<DndItem> GetByIdAsync(Guid id);
         Task<DndItem> CreateAsync(CreateDndItemRequest request);
