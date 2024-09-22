@@ -2,6 +2,8 @@
 using ItemsApi.AppDataContext;
 using ItemsApi.Middleware;
 using ItemsApi.Models;
+using ItemsApi.Services;
+using ItemsApi.Interface;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,7 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings")); // Add this line
 builder.Services.AddSingleton<ItemDbContext>(); // Add this line
+builder.Services.AddScoped<IItemServices, ItemServices>();
 
 var app = builder.Build();
 

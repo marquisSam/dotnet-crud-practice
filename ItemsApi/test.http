@@ -1,0 +1,16 @@
+GET http://localhost:5113/api/items
+
+###
+
+POST http://localhost:5113/api/items
+Content-Type: application/json
+
+{
+    "name": "Potion of Healing",
+    "description": "A potion that heals 1d10 damage",
+    "value": 1000,
+    "weight": 10,
+    "rarity": "uncommon",
+    "type": "potion",
+    "properties": ["magical","consumable"]
+}
