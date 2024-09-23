@@ -30,6 +30,6 @@ namespace ItemsApi.Models
 
     public class DbSettings
     {
-        public string ConnectionString { get; set; }
+        public string ItemsDbConnectionString { get; set; }
     }
 }

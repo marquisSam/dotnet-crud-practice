@@ -26,7 +26,7 @@ namespace ItemsApi.AppDataContext
 
          protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
          {
-             optionsBuilder.UseSqlServer(_dbsettings.ConnectionString);
+             optionsBuilder.UseSqlServer(_dbsettings.ItemsDbConnectionString);
          }
 
             // Configuring the model for the Item entity

@@ -30,11 +30,11 @@ namespace ItemsApi.Services
         {
             try
             {
-                var item = _mapper.Map<DndItem>(request);
-                item.CreatedAt = DateTime.UtcNow;
-                _context.DndItems.Add(item);
+                var items = _mapper.Map<DndItem>(request);
+                items.CreatedAt = DateTime.UtcNow;
+                _context.DndItems.Add(items);
                 await _context.SaveChangesAsync();
-                return item;
+                return items;
             }
             catch (Exception ex)
             {

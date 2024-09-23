@@ -26,10 +26,8 @@ namespace ItemsApi.Controllers
 
             try
             {
-                var createdItem = await _itemServices.CreateAsync(request);
-                return Ok(new { message = "Item created successfully", item = createdItem });
-                // var createdItem = await _itemServices.CreateAsync(request);
-                // return CreatedAtAction(nameof(GetItemByIdAsync), new { id = createdItem.Id }, createdItem);
+                var item = await _itemServices.CreateAsync(request);
+                return Ok(item);
             }
             catch (Exception ex)
             {
@@ -44,7 +42,7 @@ namespace ItemsApi.Controllers
             try
             {
                 var items = await _itemServices.GetAllItems();
-                return Ok(new { message = "Items fetched successfully", items = items });
+                return Ok( items );
             }
             catch (Exception ex)
             {
