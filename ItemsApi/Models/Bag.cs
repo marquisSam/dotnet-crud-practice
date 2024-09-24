@@ -12,6 +12,8 @@ namespace ItemsApi.Models
         public decimal? Capacity { get; set; }
         [StringLength(500)]
         public string? Description { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
         public Bag()
         {
             Name = "";

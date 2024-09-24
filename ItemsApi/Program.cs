@@ -27,6 +27,7 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
     services.Configure<DbSettings>(configuration.GetSection("DbSettings"));
     services.AddSingleton<ItemDbContext>();
     services.AddScoped<IItemServices, ItemServices>();
+    services.AddScoped<IBagServices, BagService>();
 
     services.AddCors(options =>
     {

@@ -27,7 +27,7 @@ namespace ItemsApi.Controllers.Items
             try
             {
                 var item = await _itemServices.CreateAsync(request);
-                return Ok(item);
+                return Ok(new { message = $"Successfully created item.", data = item });
             }
             catch (Exception ex)
             {
@@ -42,7 +42,7 @@ namespace ItemsApi.Controllers.Items
             try
             {
                 var items = await _itemServices.GetAllItems();
-                return Ok( items );
+                return Ok(new { message = $"Successfully retrieved items.", data = items });
             }
             catch (Exception ex)
             {

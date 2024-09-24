@@ -15,12 +15,12 @@ namespace ItemsApi.Services
 
         public async Task<IEnumerable<DndItem>> GetAllItems()
         {     
-            var todo = await _context.DndItems.ToListAsync();
-            if (todo == null)
+            var items = await _context.DndItems.ToListAsync();
+            if (items == null)
             {
-                throw new Exception(" No Todo items found");
+                throw new Exception(" No items items found");
             }
-            return todo;
+            return items;
         }
         public Task<DndItem> GetByIdAsync(Guid id)
         {
@@ -28,19 +28,25 @@ namespace ItemsApi.Services
         }
         public async Task<DndItem> CreateAsync(CreateDndItemRequest request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            var item = _mapper.Map<DndItem>(request);
+            item.CreatedAt = DateTime.UtcNow;
+            _context.DndItems.Add(item);
+
             try
             {
-                var items = _mapper.Map<DndItem>(request);
-                items.CreatedAt = DateTime.UtcNow;
-                _context.DndItems.Add(items);
                 await _context.SaveChangesAsync();
-                return items;
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
                 _logger.LogError(ex, "An error occurred while creating the DndItem.");
                 throw new Exception("An error occurred while creating the DndItem.");
             }
+            return item;
         }
         public Task<DndItem> UpdateAsync(Guid id, UpdateDndItemRequest request)
         {

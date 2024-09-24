@@ -20,7 +20,7 @@ namespace ItemsApi.AppDataContext
 
 
         // DbSet property to represent the Item table
-         public DbSet<DndItem> DndItems { get; set; }
+        public DbSet<DndItem> DndItems { get; set; }
 
         // DbSet property to represent the Bag table
         public DbSet<Bag> Bags { get; set; }

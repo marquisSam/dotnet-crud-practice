@@ -6,11 +6,22 @@ POST http://localhost:5113/api/items
 Content-Type: application/json
 
 {
-    "name": "Potion of Healing",
-    "description": "A potion that heals 1d10 damage",
-    "value": 1000,
-    "weight": 10,
-    "rarity": "uncommon",
+    "name": "Potion of Giant Strength",
+    "description": "A potion that grants the drinker the ability to lift 1000 pounds",
+    "value": 89,
+    "weight": 1,
+    "rarity": "rare",
     "type": "potion",
     "properties": ["magical","consumable"]
+}
+
+###
+
+POST http://localhost:5113/api/bags
+Content-Type: application/json
+
+{
+    "name": "Big Bag",
+    "description": "A big bag that can hold 100 pounds",
+    "capacity": 100
 }

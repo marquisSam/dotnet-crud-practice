@@ -12,17 +12,39 @@ namespace ItemsApi.Services
         private readonly ItemDbContext _context;
         private readonly ILogger<BagService> _logger;
         private readonly IMapper _mapper;
-        public Task<IEnumerable<Bag>> GetAll()
+        public async Task<IEnumerable<Bag>> GetAll()
         {
-            throw new NotImplementedException();
+            var bags = await _context.Bags.ToListAsync();
+            if (bags == null)
+            {
+                throw new Exception(" No bags found");
+            }
+            return bags;
         }
         public Task<Bag> GetByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
-        public Task<Bag> CreateAsync(CreateBagRequest request)
+        public async Task<Bag> CreateAsync(CreateBagRequest request)
         {
-            throw new NotImplementedException();
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            var bag = _mapper.Map<Bag>(request);
+            bag.CreatedAt = DateTime.UtcNow;
+            _context.Bags.Add(bag);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, "An error occurred while creating the Bag.");
+                throw new Exception("An error occurred while creating the Bag.");
+            }
+            return bag;
         }
         public Task<Bag> UpdateAsync(Guid id, UpdateBagRequest request)
         {
