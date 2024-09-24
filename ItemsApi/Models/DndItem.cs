@@ -28,8 +28,5 @@ namespace ItemsApi.Models
         public string Message { get; set; }
     }
 
-    public class DbSettings
-    {
-        public string ItemsDbConnectionString { get; set; }
-    }
+
 }

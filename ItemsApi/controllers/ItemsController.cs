@@ -3,7 +3,7 @@ using ItemsApi.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace ItemsApi.Controllers
+namespace ItemsApi.Controllers.Items
 {
     [ApiController]
     [Route("api/[controller]")]

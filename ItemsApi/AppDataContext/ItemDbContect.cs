@@ -22,19 +22,28 @@ namespace ItemsApi.AppDataContext
         // DbSet property to represent the Item table
          public DbSet<DndItem> DndItems { get; set; }
 
+        // DbSet property to represent the Bag table
+        public DbSet<Bag> Bags { get; set; }
+
+
          // Configuring the database provider and connection string
 
          protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
          {
-             optionsBuilder.UseSqlServer(_dbsettings.ItemsDbConnectionString);
+             optionsBuilder.UseSqlServer(_dbsettings.ConnectionString);
          }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
             // Configuring the model for the Item entity
-         protected override void OnModelCreating(ModelBuilder modelBuilder)
-         {
-             modelBuilder.Entity<DndItem>()
-                 .ToTable("DndItemsAPI")
-                 .HasKey(x => x.Id);
-         }
+            modelBuilder.Entity<DndItem>()
+                .ToTable("DndItemsAPI")
+                .HasKey(x => x.Id);
+
+            // Configuring the model for the Bag entity
+            modelBuilder.Entity<Bag>()
+                .ToTable("BagsAPI")
+                .HasKey(x => x.Id);
+        }
      }
 }
