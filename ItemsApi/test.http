@@ -6,8 +6,8 @@ POST http://localhost:5113/api/items
 Content-Type: application/json
 
 {
-    "name": "Potion of Giant Strength",
-    "description": "A potion that grants the drinker the ability to lift 1000 pounds",
+    "name": "Glove of UUID",
+    "description": "A glove that grants the wearer the ability to catch any item by UUID",
     "value": 89,
     "weight": 1,
     "rarity": "rare",
@@ -21,7 +21,16 @@ POST http://localhost:5113/api/bags
 Content-Type: application/json
 
 {
-    "name": "Big Bag",
-    "description": "A big bag that can hold 100 pounds",
-    "capacity": 100
+    "name": "Scroll Case",
+    "description": "A case that can hold 25 scrolls",
+    "capacity": 25
 }
+
+###
+
+GET http://localhost:5113/api/bags
+
+###
+
+GET http://localhost:5113/api/bags/9A8526E7-F123-4F90-609D-08DCDD74D8F7
+

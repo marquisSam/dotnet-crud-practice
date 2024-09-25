@@ -21,9 +21,15 @@ namespace ItemsApi.Services
             }
             return bags;
         }
-        public Task<Bag> GetByIdAsync(Guid id)
+        public async Task<Bag> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"meuhhhh {id}. ID type: {id.GetType().Name}");
+            var bag = await _context.Bags.FindAsync(id);
+            if (bag == null)
+            {
+                throw new Exception("Bag not found");
+            }
+            return bag;
         }
         public async Task<Bag> CreateAsync(CreateBagRequest request)
         {

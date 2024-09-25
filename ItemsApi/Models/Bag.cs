@@ -5,7 +5,7 @@ namespace ItemsApi.Models
     public class Bag
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [StringLength(100)]
         public string Name { get; set; }
         [Range(0, 5000)]

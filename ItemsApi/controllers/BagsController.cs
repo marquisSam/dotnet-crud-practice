@@ -50,16 +50,18 @@ namespace ItemsApi.Controllers.Bags
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetBagByIdAsync(Guid id)
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetByIdAsync(Guid id)
         {
+            Console.WriteLine($"Retrieving bag with ID: {id}. ID type: {id.GetType().Name}");
             try
             {
                 var bag = await _bagServices.GetByIdAsync(id);
-                return Ok(bag);
+                return Ok(new { message = $"Successfully retrieved bag.", data = bag });
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error retrieving bag: {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
