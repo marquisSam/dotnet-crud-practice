@@ -4,10 +4,11 @@ using ItemsApi.Middleware;
 using ItemsApi.Models;
 using ItemsApi.Services;
 using ItemsApi.Interface;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-ConfigureServices(builder.Services, builder.Configuration);
+ConfigureServices(builder.Services, builder);
 
 var app = builder.Build();
 
@@ -16,7 +17,7 @@ ConfigureApp(app);
 app.Run();
 
 // Méthode pour configurer les services
-static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+static void ConfigureServices(IServiceCollection services, WebApplicationBuilder builder)
 {
     services.AddControllers();
     services.AddEndpointsApiExplorer();
@@ -24,8 +25,14 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
     services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     services.AddExceptionHandler<GlobalExceptionHandler>();
 
-    services.Configure<DbSettings>(configuration.GetSection("DbSettings"));
-    services.AddSingleton<ItemDbContext>();
+    services.Configure<DbSettings>(builder.Configuration.GetSection("DbSettings"));
+    
+    // Add ItemDbContext to the service collection with SQL Server as the database provider
+    // The connection string is retrieved from the configuration
+    // by not making it a singleton, it will be created each time the context is used for each request
+    services.AddDbContext<ItemDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
+    
     services.AddScoped<IItemServices, ItemServices>();
     services.AddScoped<IBagServices, BagService>();
 

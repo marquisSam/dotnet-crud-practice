@@ -56,9 +56,16 @@ namespace ItemsApi.Services
         {
             throw new NotImplementedException();
         }
-        public Task<Bag> DeleteAsync(Guid id)
+        public async Task<Bag> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var bag = await _context.Bags.FindAsync(id);
+            if (bag == null)
+            {
+                throw new Exception("Bag not found");
+            }
+            _context.Bags.Remove(bag);
+            await _context.SaveChangesAsync();
+            return bag;
         }
         public Task<Bag> AddItemsToBagAsync(Guid bagId, Guid itemId)
         {

@@ -8,6 +8,7 @@ namespace ItemsApi.Models
         public Guid Id { get; set; }
         [StringLength(100)]
         public string Name { get; set; }
+        public List<Guid> Content { get; set; }
         [Range(0, 5000)]
         public decimal? Capacity { get; set; }
         [StringLength(500)]
@@ -16,8 +17,7 @@ namespace ItemsApi.Models
         public DateTime UpdatedAt { get; set; }
         public Bag()
         {
-            Name = "";
-            Capacity = 100;
+            Content = new List<Guid>();
         }
     }
 

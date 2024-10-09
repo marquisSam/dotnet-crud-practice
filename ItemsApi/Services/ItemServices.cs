@@ -52,9 +52,17 @@ namespace ItemsApi.Services
         {
             throw new NotImplementedException();
         }
-        public Task<DndItem> DeleteAsync(Guid id)
+        public async Task<DndItem> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
+            var item = await _context.DndItems.FindAsync(id);
+            if (item == null)
+            {
+                throw new Exception("Item not found");
+            }
+            _context.DndItems.Remove(item);
+            await _context.SaveChangesAsync();
+            return item;
         }
         public ItemServices(ItemDbContext context, ILogger<ItemServices> logger, IMapper mapper)
         {

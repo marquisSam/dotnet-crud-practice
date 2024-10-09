@@ -10,10 +10,11 @@ namespace ItemsApi.Controllers.Items
     public class ItemsController : ControllerBase
     {
         private readonly IItemServices _itemServices;
-
-        public ItemsController(IItemServices itemServices)
+        private readonly ILogger<ItemsController> _logger;
+        public ItemsController(IItemServices itemServices, ILogger<ItemsController> logger)
         {
             _itemServices = itemServices;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -46,6 +47,23 @@ namespace ItemsApi.Controllers.Items
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error occurred while getting items");
+                return StatusCode(500, "An unexpected error occurred. Please try again later.");
+            }
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteItemAsync(Guid id)
+        {
+            try
+            {
+                var item = await _itemServices.DeleteAsync(id);
+                _logger.LogInformation($"Item deleted successfully: {item.Name}");
+                return Ok(new { message = $"Successfully deleted item {item.Name}.", data = item });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error deleting item: {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }

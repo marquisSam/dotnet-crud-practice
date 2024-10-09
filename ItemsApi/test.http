@@ -21,9 +21,10 @@ POST http://localhost:5113/api/bags
 Content-Type: application/json
 
 {
-    "name": "Scroll Case",
-    "description": "A case that can hold 25 scrolls",
-    "capacity": 25
+    "name": "Un autre sac",
+    "description": "Un sac qui peut contenir 100 lb",
+    "capacity": 100,
+    "content": ["ff02fc8e-0d5f-444a-7d18-08dcdd7725dd"]
 }
 
 ###
@@ -33,4 +34,8 @@ GET http://localhost:5113/api/bags
 ###
 
 GET http://localhost:5113/api/bags/9A8526E7-F123-4F90-609D-08DCDD74D8F7
+
+###
+
+DELETE http://localhost:5113/api/bags/9A8526E7-F123-4F90-609D-08DCDD74D8F7
 

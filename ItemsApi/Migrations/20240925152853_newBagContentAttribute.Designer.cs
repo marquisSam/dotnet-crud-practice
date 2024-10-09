@@ -4,6 +4,7 @@ using ItemsApi.AppDataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ItemsApi.Migrations
 {
     [DbContext(typeof(ItemDbContext))]
-    partial class ItemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240925152853_newBagContentAttribute")]
+    partial class newBagContentAttribute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,10 +33,6 @@ namespace ItemsApi.Migrations
 
                     b.Property<decimal?>("Capacity")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -59,6 +58,9 @@ namespace ItemsApi.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("BagId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -91,7 +93,21 @@ namespace ItemsApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BagId");
+
                     b.ToTable("DndItemsAPI", (string)null);
+                });
+
+            modelBuilder.Entity("ItemsApi.Models.DndItem", b =>
+                {
+                    b.HasOne("ItemsApi.Models.Bag", null)
+                        .WithMany("Content")
+                        .HasForeignKey("BagId");
+                });
+
+            modelBuilder.Entity("ItemsApi.Models.Bag", b =>
+                {
+                    b.Navigation("Content");
                 });
 #pragma warning restore 612, 618
         }
