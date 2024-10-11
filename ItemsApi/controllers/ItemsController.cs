@@ -67,5 +67,23 @@ namespace ItemsApi.Controllers.Items
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateItemAsync(Guid id, UpdateDndItemRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var item = await _itemServices.UpdateAsync(id, request);
+                return Ok(new { message = $"Successfully updated item.", data = item });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Task failed sussessfully : {ex.Message}.");
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }

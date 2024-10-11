@@ -47,14 +47,30 @@ namespace ItemsApi.Services
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "An error occurred while creating the Bag.");
-                throw new Exception("An error occurred while creating the Bag.");
+                _logger.LogError(ex, "Task failed successfully to create the Bag.");
+                throw new Exception($"Task failed successfully to create the Bag: {ex.Message}.");
             }
             return bag;
         }
-        public Task<Bag> UpdateAsync(Guid id, UpdateBagRequest request)
+        public async Task<Bag> UpdateAsync(Guid id, UpdateBagRequest request)
         {
-            throw new NotImplementedException();
+            var bag = await _context.Bags.FindAsync(id);
+            if (bag == null)
+            {
+                throw new Exception("Bag not found");
+            }
+            _mapper.Map(request, bag);
+            bag.UpdatedAt = DateTime.UtcNow;
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, $"Task failed successfully to update the Bag.");
+                throw new Exception($"Task failed successfully to update the Bag: {ex.Message}.");
+            }
+            return bag;
         }
         public async Task<Bag> DeleteAsync(Guid id)
         {
@@ -67,11 +83,17 @@ namespace ItemsApi.Services
             await _context.SaveChangesAsync();
             return bag;
         }
+
+
         public Task<Bag> AddItemsToBagAsync(Guid bagId, Guid itemId)
         {
             throw new NotImplementedException();
         }
         public Task<Bag> RemoveItemFromBagAsync(Guid bagId, Guid itemId)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<Bag> EmptyBagAsync(Guid bagId)
         {
             throw new NotImplementedException();
         }

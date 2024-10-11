@@ -68,7 +68,7 @@ namespace ItemsApi.Controllers.Bags
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error retrieving bag: {ex.Message}");
+                _logger.LogError($"Task failed successfully to retrieve the Bag: {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -83,7 +83,26 @@ namespace ItemsApi.Controllers.Bags
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error deleting bag: {ex.Message}");
+                _logger.LogError($"Task failed successfully to delete the Bag: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateBagAsync(Guid id, UpdateBagRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var bag = await _bagServices.UpdateAsync(id, request);
+                _logger.LogInformation($"Bag updated successfully: {bag.Name}");
+                return Ok(new ApiResponse<Bag>(message: $"Successfully updated bag {bag.Name}.", data: bag));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Task failed successfully to update the Bag: {ex.Message}");
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }

@@ -16,7 +16,8 @@ namespace ItemsApi.MappingProfiles
             CreateMap<UpdateDndItemRequest, DndItem>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
-                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             CreateMap<CreateBagRequest, Bag>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
@@ -26,7 +27,8 @@ namespace ItemsApi.MappingProfiles
             CreateMap<UpdateBagRequest, Bag>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
-                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         }
     }
 }

@@ -14,7 +14,7 @@ namespace ItemsApi.Services
         private readonly IMapper _mapper;
 
         public async Task<IEnumerable<DndItem>> GetAllItems()
-        {     
+        {
             var items = await _context.DndItems.ToListAsync();
             if (items == null)
             {
@@ -43,18 +43,35 @@ namespace ItemsApi.Services
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "An error occurred while creating the DndItem.");
-                throw new Exception("An error occurred while creating the DndItem.");
+                _logger.LogError(ex, "Task failed sussessfully : creating.");
+                throw new Exception($"Task failed sussessfully : {ex.Message}");
             }
             return item;
         }
-        public Task<DndItem> UpdateAsync(Guid id, UpdateDndItemRequest request)
+        public async Task<DndItem> UpdateAsync(Guid id, UpdateDndItemRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var item = await _context.DndItems.FindAsync(id);
+                if (item == null)
+                {
+                    throw new Exception("Item not found");
+                }
+
+                _mapper.Map(request, item);
+                item.UpdatedAt = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+                return item;
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, "Task failed sussessfully : updating.");
+                throw new Exception($"Task failed sussessfully : {ex.Message}");
+            }
         }
         public async Task<DndItem> DeleteAsync(Guid id)
         {
-            // throw new NotImplementedException();
             var item = await _context.DndItems.FindAsync(id);
             if (item == null)
             {
